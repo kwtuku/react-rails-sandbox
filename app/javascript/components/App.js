@@ -1,5 +1,6 @@
 import React from 'react';
+import Editor from './Editor';
 
-const HelloMessage = ({ name }) => <h1 className='text-3xl font-bold underline'>Hello, {name}!</h1>;
+const App = () => <Editor />;
 
-export default HelloMessage;
+export default App;
