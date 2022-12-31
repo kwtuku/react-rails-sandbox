@@ -8,7 +8,7 @@ const EventList = ({ events }) => {
 
     return eventArray.map((event) => (
       <li key={event.id}>
-        <Link to={`/events/${event.id}`}>
+        <Link to={`/events/${event.id}`} className='block border-b pt-2 px-1.5 pb-2.5 hover:bg-primary hover:text-primary-content'>
           {event.event_date}
           {' - '}
           {event.event_type}
@@ -18,8 +18,8 @@ const EventList = ({ events }) => {
   };
 
   return (
-    <section>
-      <h2>Events</h2>
+    <section className='bg-base-200 text-base-content p-4'>
+      <h2 className='text-xl font-medium pt-2 px-1.5 pb-2.5'>Events</h2>
       <ul>{renderEvents(events)}</ul>
     </section>
   );

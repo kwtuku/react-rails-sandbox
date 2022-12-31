@@ -30,18 +30,20 @@ const Editor = () => {
   return (
     <>
       <Header />
-      {isError && <p>Something went wrong. Check the console.</p>}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <EventList events={events} />
+      <div className='grid gap-12 grid-cols-[minmax(250px,20%)_auto] my-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+        {isError && <p>Something went wrong. Check the console.</p>}
+        {isLoading ? (
+          <p className='grid justify-center content-center h-96'>Loading...</p>
+        ) : (
+          <>
+            <EventList events={events} />
 
-          <Routes>
-            <Route path=":id" element={<Event events={events} />} />
-          </Routes>
-        </>
-      )}
+            <Routes>
+              <Route path=":id" element={<Event events={events} />} />
+            </Routes>
+          </>
+        )}
+      </div>
     </>
   );
 };

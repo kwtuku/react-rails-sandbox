@@ -7,8 +7,8 @@ const Event = ({ events }) => {
   const event = events.find((e) => e.id === Number(id));
 
   return (
-    <>
-      <h2>
+    <div className='leading-9'>
+      <h2 className='text-xl font-medium mb-2.5'>
         {event.event_date}
         {' - '}
         {event.event_type}
@@ -33,7 +33,7 @@ const Event = ({ events }) => {
           <strong>Published:</strong> {event.published ? 'yes' : 'no'}
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 
