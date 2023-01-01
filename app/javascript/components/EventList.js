@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const EventList = ({ events }) => {
   const renderEvents = (eventArray) => {
@@ -23,7 +23,10 @@ const EventList = ({ events }) => {
 
   return (
     <section className='bg-base-200 text-base-content p-4'>
-      <h2 className='text-xl font-medium pt-2 px-1.5 pb-2.5'>Events</h2>
+      <div className='flex pt-2 px-1.5 pb-2.5'>
+        <h2 className='text-xl font-medium'>Events</h2>
+        <Link to="/events/new" className='ml-auto self-end link link-primary link-hover'>New Event</Link>
+      </div>
       <ul>{renderEvents(events)}</ul>
     </section>
   );
