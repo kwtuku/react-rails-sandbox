@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import React from "react"
+import PropTypes from "prop-types"
+import { useParams } from "react-router-dom"
 
 const Event = ({ events }) => {
-  const { id } = useParams();
-  const event = events.find((e) => e.id === Number(id));
+  const { id } = useParams()
+  const event = events.find((e) => e.id === Number(id))
 
   return (
-    <div className='leading-9'>
-      <h2 className='text-xl font-medium mb-2.5'>
+    <div className="leading-9">
+      <h2 className="mb-2.5 text-xl font-medium">
         {event.event_date}
-        {' - '}
+        {" - "}
         {event.event_type}
       </h2>
       <ul>
@@ -30,12 +30,12 @@ const Event = ({ events }) => {
           <strong>Host:</strong> {event.host}
         </li>
         <li>
-          <strong>Published:</strong> {event.published ? 'yes' : 'no'}
+          <strong>Published:</strong> {event.published ? "yes" : "no"}
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
 Event.propTypes = {
   events: PropTypes.arrayOf(
@@ -49,6 +49,6 @@ Event.propTypes = {
       published: PropTypes.bool.isRequired,
     })
   ).isRequired,
-};
+}
 
-export default Event;
+export default Event

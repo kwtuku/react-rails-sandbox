@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import EventList from './EventList';
-import { Routes, Route } from 'react-router-dom';
-import Event from './Event';
-import EventForm from './EventForm';
+import React, { useState, useEffect } from "react"
+import Header from "./Header"
+import EventList from "./EventList"
+import { Routes, Route } from "react-router-dom"
+import Event from "./Event"
+import EventForm from "./EventForm"
 
 const Editor = () => {
-  const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [events, setEvents] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await window.fetch('/api/events');
-        if (!response.ok) throw Error(response.statusText);
-        const data = await response.json();
-        setEvents(data);
+        const response = await window.fetch("/api/events")
+        if (!response.ok) throw Error(response.statusText)
+        const data = await response.json()
+        setEvents(data)
       } catch (error) {
-        setIsError(true);
-        console.error(error);
+        setIsError(true)
+        console.error(error)
       }
 
-      setIsLoading(false);
-    };
+      setIsLoading(false)
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <>
       <Header />
-      <div className='grid gap-12 grid-cols-[minmax(250px,20%)_auto] my-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+      <div className="my-6 mx-auto grid max-w-7xl grid-cols-[minmax(250px,20%)_auto] gap-12 px-4 sm:px-6 lg:px-8">
         {isError && <p>Something went wrong. Check the console.</p>}
         {isLoading ? (
-          <p className='grid justify-center content-center h-96'>Loading...</p>
+          <p className="grid h-96 content-center justify-center">Loading...</p>
         ) : (
           <>
             <EventList events={events} />
@@ -47,7 +47,7 @@ const Editor = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Editor;
+export default Editor
