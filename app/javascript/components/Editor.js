@@ -4,11 +4,12 @@ import EventList from "./EventList"
 import { Routes, Route, useNavigate } from "react-router-dom"
 import Event from "./Event"
 import EventForm from "./EventForm"
+import { success } from "../helpers/notifications"
+import { handleAjaxError } from "../helpers/helpers"
 
 const Editor = () => {
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -19,8 +20,7 @@ const Editor = () => {
         const data = await response.json()
         setEvents(data)
       } catch (error) {
-        setIsError(true)
-        console.error(error)
+        handleAjaxError(error)
       }
 
       setIsLoading(false)
@@ -44,10 +44,10 @@ const Editor = () => {
       const savedEvent = await response.json()
       const newEvents = [...events, savedEvent]
       setEvents(newEvents)
-      window.alert("Event Added!")
+      success("Event Added!")
       navigate(`/events/${savedEvent.id}`)
     } catch (error) {
-      console.error(error)
+      handleAjaxError(error)
     }
   }
 
@@ -62,11 +62,11 @@ const Editor = () => {
 
         if (!response.ok) throw Error(response.statusText)
 
-        window.alert("Event Deleted!")
+        success("Event Deleted!")
         navigate("/events")
         setEvents(events.filter((event) => event.id !== eventId))
       } catch (error) {
-        console.error(error)
+        handleAjaxError(error)
       }
     }
   }
@@ -75,7 +75,6 @@ const Editor = () => {
     <>
       <Header />
       <div className="my-6 mx-auto grid max-w-7xl grid-cols-[minmax(250px,20%)_auto] gap-12 px-4 sm:px-6 lg:px-8">
-        {isError && <p>Something went wrong. Check the console.</p>}
         {isLoading ? (
           <p className="grid h-96 content-center justify-center">Loading...</p>
         ) : (
