@@ -131,6 +131,7 @@ const EventForm = ({ events, onSave }) => {
             className="input-bordered input"
             ref={dateInput}
             autoComplete="off"
+            onChange={handleInputChange}
             value={event.event_date}
           />
         </div>
