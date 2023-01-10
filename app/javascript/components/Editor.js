@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import Header from "./Header"
-import EventList from "./EventList"
 import { Routes, Route, useNavigate } from "react-router-dom"
+import { handleAjaxError } from "../helpers/helpers"
+import { success } from "../helpers/notifications"
 import Event from "./Event"
 import EventForm from "./EventForm"
-import { success } from "../helpers/notifications"
-import { handleAjaxError } from "../helpers/helpers"
+import EventList from "./EventList"
+import Header from "./Header"
 
 const Editor = () => {
   const [events, setEvents] = useState([])

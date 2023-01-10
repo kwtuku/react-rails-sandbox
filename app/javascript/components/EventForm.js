@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
-import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers"
 import Pikaday from "pikaday"
 import PropTypes from "prop-types"
+import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
+import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers"
 
 const EventForm = ({ events, onSave }) => {
   const { id } = useParams()

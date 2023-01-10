@@ -1,5 +1,5 @@
-import React from "react"
 import PropTypes from "prop-types"
+import React from "react"
 import { Link, useParams } from "react-router-dom"
 
 const Event = ({ events, onDelete }) => {
