@@ -1,23 +1,27 @@
 import Pikaday from "pikaday"
 import PropTypes from "prop-types"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers"
 
 const EventForm = ({ events, onSave }) => {
   const { id } = useParams()
 
-  const defaults = {
-    event_type: "",
-    event_date: "",
-    title: "",
-    speaker: "",
-    host: "",
-    published: false,
-  }
+  const initialEventState = useCallback(() => {
+    const defaults = {
+      event_type: "",
+      event_date: "",
+      title: "",
+      speaker: "",
+      host: "",
+      published: false,
+    }
 
-  const currEvent = id ? events.find((e) => e.id === Number(id)) : {}
-  const initialEventState = { ...defaults, ...currEvent }
+    const currEvent = id ? events.find((e) => e.id === Number(id)) : {}
+
+    return { ...defaults, ...currEvent }
+  }, [events, id])
+
   const [event, setEvent] = useState(initialEventState)
 
   const [formErrors, setFormErrors] = useState({})
@@ -40,7 +44,7 @@ const EventForm = ({ events, onSave }) => {
 
   useEffect(() => {
     setEvent(initialEventState)
-  }, [events])
+  }, [events, initialEventState])
 
   const updateEvent = (key, value) => {
     setEvent((prevEvent) => ({ ...prevEvent, [key]: value }))
