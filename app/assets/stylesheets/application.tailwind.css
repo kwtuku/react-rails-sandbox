@@ -1,6 +1,6 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 @import "pikaday/css/pikaday.css";
 @import "react-toastify/dist/ReactToastify.css";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
