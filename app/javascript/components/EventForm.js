@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers"
+import EventNotFound from "./EventNotFound"
 
 const EventForm = ({ events, onSave }) => {
   const { id } = useParams()
@@ -109,6 +110,8 @@ const EventForm = ({ events, onSave }) => {
   const title = event.id
     ? `${event.event_date} - ${event.event_type}`
     : "New Event"
+
+  if (id && !event.id) return <EventNotFound />
 
   return (
     <section>
