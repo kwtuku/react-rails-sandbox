@@ -1,7 +1,7 @@
 import Pikaday from "pikaday"
 import PropTypes from "prop-types"
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers"
 
 const EventForm = ({ events, onSave }) => {
@@ -105,11 +105,16 @@ const EventForm = ({ events, onSave }) => {
     }
   }
 
+  const cancelURL = event.id ? `/events/${event.id}` : "/events"
+  const title = event.id
+    ? `${event.event_date} - ${event.event_type}`
+    : "New Event"
+
   return (
     <section>
       {renderErrors()}
 
-      <h2 className="text-xl font-medium">New Event</h2>
+      <h2 className="text-xl font-medium">{title}</h2>
       <form className="mt-4 w-full max-w-lg" onSubmit={handleSubmit}>
         <div className="form-control">
           <label htmlFor="event_type" className="label">
@@ -192,9 +197,12 @@ const EventForm = ({ events, onSave }) => {
             />
           </label>
         </div>
-        <button type="submit" className="btn-primary btn">
+        <button type="submit" className="btn-primary btn normal-case">
           Save
         </button>
+        <Link to={cancelURL} className="btn-outline btn ml-3 normal-case">
+          Cancel
+        </Link>
       </form>
     </section>
   )
