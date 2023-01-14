@@ -1,8 +1,23 @@
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useRef, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 
 const EventList = ({ events }) => {
+  const [searchTerm, setSearchTerm] = useState("")
+  const searchInput = useRef(null)
+
+  const updateSearchTerm = () => {
+    setSearchTerm(searchInput.current.value)
+  }
+
+  const matchSearchTerm = (obj) => {
+    // eslint-disable-next-line no-unused-vars
+    const { id, published, created_at, updated_at, ...rest } = obj
+    return Object.values(rest).some(
+      (value) => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+    )
+  }
+
   const renderEvents = (eventArray) => {
     const baseClassName = "block border-b pt-2 px-1.5 pb-2.5"
     const activeClassName = [
@@ -14,22 +29,23 @@ const EventList = ({ events }) => {
       "hover:bg-primary hover:text-primary-content",
     ].join(" ")
 
-    eventArray.sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
-
-    return eventArray.map((event) => (
-      <li key={event.id}>
-        <NavLink
-          to={`/events/${event.id}`}
-          className={({ isActive }) =>
-            isActive ? activeClassName : inactiveClassName
-          }
-        >
-          {event.event_date}
-          {" - "}
-          {event.event_type}
-        </NavLink>
-      </li>
-    ))
+    return eventArray
+      .filter((el) => matchSearchTerm(el))
+      .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
+      .map((event) => (
+        <li key={event.id}>
+          <NavLink
+            to={`/events/${event.id}`}
+            className={({ isActive }) =>
+              isActive ? activeClassName : inactiveClassName
+            }
+          >
+            {event.event_date}
+            {" - "}
+            {event.event_type}
+          </NavLink>
+        </li>
+      ))
   }
 
   return (
@@ -43,6 +59,15 @@ const EventList = ({ events }) => {
           New Event
         </Link>
       </div>
+
+      <input
+        className="input-bordered input my-3.5 w-full"
+        placeholder="Search"
+        type="text"
+        ref={searchInput}
+        onKeyUp={updateSearchTerm}
+      />
+
       <ul>{renderEvents(events)}</ul>
     </section>
   )
