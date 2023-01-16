@@ -104,6 +104,7 @@ GEM
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
     json (2.6.3)
+    language_server-protocol (3.17.0.2)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -181,16 +182,16 @@ GEM
     reline (0.3.2)
       io-console (~> 0.5)
     rexml (3.2.5)
-    rubocop (1.43.0)
+    rubocop (1.42.0)
       json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.2.0.0)
+      parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 2.4.0, < 3.0)
+      unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.24.1)
       parser (>= 3.1.1.0)
     rubocop-performance (1.15.2)
@@ -206,6 +207,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    standard (1.22.0)
+      language_server-protocol (~> 3.17.0.2)
+      rubocop (= 1.42.0)
+      rubocop-performance (= 1.15.2)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.1)
@@ -253,6 +258,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   selenium-webdriver
+  standard
   stimulus-rails
   turbo-rails
   tzinfo-data

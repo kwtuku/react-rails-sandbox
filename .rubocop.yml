@@ -1,6 +1,10 @@
 require:
   - rubocop-performance
   - rubocop-rails
+  - standard
+
+inherit_gem:
+  standard: config/base.yml
 
 inherit_mode:
   merge:
@@ -22,9 +26,3 @@ AllCops:
     - config/initializers/inflections.rb
     - config/initializers/permissions_policy.rb
     - config/puma.rb
-
-Style/Documentation:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
