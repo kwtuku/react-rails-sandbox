@@ -9,6 +9,8 @@ extends:
   - prettier
 overrides: []
 parserOptions:
+  ecmaFeatures:
+    jsx: true
   ecmaVersion: latest
   sourceType: module
 rules: { "import/order": ["error", { alphabetize: { order: "asc" } }] }
