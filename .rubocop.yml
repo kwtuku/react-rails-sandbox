@@ -1,6 +1,7 @@
 require:
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
   - standard
 
 inherit_gem:
@@ -26,3 +27,15 @@ AllCops:
     - config/initializers/inflections.rb
     - config/initializers/permissions_policy.rb
     - config/puma.rb
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - とき$
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
