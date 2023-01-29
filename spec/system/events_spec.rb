@@ -133,4 +133,28 @@ RSpec.describe "イベント", type: :system do
       end
     end
   end
+
+  describe "削除" do
+    let!(:event) { create(:event, event_type: "Symposium", event_date: "2022-03-01".to_date) }
+
+    it "トーストメッセージが表示される、削除したイベントのリンクが表示されなくなる" do
+      visit root_path
+
+      expect(page).to have_content "Symposium"
+      expect(page).to have_current_path events_path
+
+      click_link "2022-03-01 - Symposium"
+
+      expect(page).to have_content "Type: Symposium"
+      expect(page).to have_current_path "/events/#{event.id}"
+
+      accept_confirm "Are you sure?" do
+        click_button "Delete"
+      end
+
+      expect(page).to have_content "Event Deleted!"
+      expect(page).to have_current_path events_path
+      expect(page).not_to have_link "2022-03-01 - Symposium"
+    end
+  end
 end
