@@ -134,6 +134,72 @@ RSpec.describe "イベント", type: :system do
     end
   end
 
+  describe "更新" do
+    let!(:event) { create(:event, event_type: "Symposium", event_date: "2022-03-30".to_date) }
+
+    context "入力内容が有効なとき" do
+      it "トーストメッセージが表示される、更新したイベントが表示される" do
+        visit root_path
+
+        expect(page).to have_content "Symposium"
+        expect(page).to have_current_path events_path
+
+        click_link "2022-03-30 - Symposium"
+
+        expect(page).to have_content "Type: Symposium"
+        expect(page).to have_current_path "/events/#{event.id}"
+
+        click_link "Edit"
+
+        expect(page).to have_field "Type:", with: "Symposium"
+        expect(page).to have_current_path "/events/#{event.id}/edit"
+
+        fill_in "Type:", with: "Colloquium"
+        click_button "Save"
+
+        expect(page).to have_content "Event Updated!"
+        expect(page).to have_current_path "/events/#{event.id}"
+        expect(page).to have_content "Type: Colloquium"
+      end
+    end
+
+    context "入力内容が無効なとき" do
+      it "エラーメッセージが表示される" do
+        visit root_path
+
+        expect(page).to have_content "Symposium"
+        expect(page).to have_current_path events_path
+
+        click_link "2022-03-30 - Symposium"
+
+        expect(page).to have_content "Type: Symposium"
+        expect(page).to have_current_path "/events/#{event.id}"
+
+        click_link "Edit"
+
+        expect(page).to have_field "Type:", with: "Symposium"
+        expect(page).to have_current_path "/events/#{event.id}/edit"
+
+        fill_in "Type:", with: ""
+        click_button "Save"
+
+        expect(page).to have_content "The following errors prohibited the event from being saved:"
+        expect(page).to have_current_path "/events/#{event.id}/edit"
+
+        expect(page).to have_content "You must enter an event type"
+      end
+    end
+
+    context "編集ページの URL に直接移動したとき" do
+      it "フォームが表示される" do
+        visit "/events/#{event.id}/edit"
+
+        expect(page).to have_field "Type:", with: "Symposium"
+        expect(page).to have_current_path "/events/#{event.id}/edit"
+      end
+    end
+  end
+
   describe "削除" do
     let!(:event) { create(:event, event_type: "Symposium", event_date: "2022-03-01".to_date) }
 
