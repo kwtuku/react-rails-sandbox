@@ -40,8 +40,8 @@ class Api::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
-      :event_type,
-      :event_date,
+      :kind,
+      :date,
       :title,
       :speaker,
       :host,

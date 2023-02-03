@@ -31,7 +31,7 @@ const EventList = ({ events }) => {
 
     return eventArray
       .filter((el) => matchSearchTerm(el))
-      .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
       .map((event) => (
         <li key={event.id}>
           <NavLink
@@ -40,9 +40,9 @@ const EventList = ({ events }) => {
               isActive ? activeClassName : inactiveClassName
             }
           >
-            {event.event_date}
+            {event.date}
             {" - "}
-            {event.event_type}
+            {event.kind}
           </NavLink>
         </li>
       ))
@@ -77,8 +77,8 @@ EventList.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
-      event_type: PropTypes.string,
-      event_date: PropTypes.string,
+      kind: PropTypes.string,
+      date: PropTypes.string,
       title: PropTypes.string,
       speaker: PropTypes.string,
       host: PropTypes.string,

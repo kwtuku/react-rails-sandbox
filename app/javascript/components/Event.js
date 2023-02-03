@@ -13,9 +13,9 @@ const Event = ({ events, onDelete }) => {
     <div className="leading-9">
       <div className="flex items-center px-1.5 pt-2 pb-2.5">
         <h2 className="text-xl font-medium">
-          {event.event_date}
+          {event.date}
           {" - "}
-          {event.event_type}
+          {event.kind}
         </h2>
         <Link
           to={`/events/${event.id}/edit`}
@@ -33,10 +33,10 @@ const Event = ({ events, onDelete }) => {
       </div>
       <ul>
         <li>
-          <strong>Type:</strong> {event.event_type}
+          <strong>Kind:</strong> {event.kind}
         </li>
         <li>
-          <strong>Date:</strong> {event.event_date}
+          <strong>Date:</strong> {event.date}
         </li>
         <li>
           <strong>Title:</strong> {event.title}
@@ -59,8 +59,8 @@ Event.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      event_type: PropTypes.string.isRequired,
-      event_date: PropTypes.string.isRequired,
+      kind: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       speaker: PropTypes.string.isRequired,
       host: PropTypes.string.isRequired,

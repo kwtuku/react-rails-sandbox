@@ -7,12 +7,12 @@ const isValidDate = (dateObj) => !Number.isNaN(Date.parse(dateObj))
 export const validateEvent = (event) => {
   const errors = {}
 
-  if (event.event_type === "") {
-    errors.event_type = "You must enter an event type"
+  if (event.kind === "") {
+    errors.kind = "You must enter an event kind"
   }
 
-  if (!isValidDate(event.event_date)) {
-    errors.event_date = "You must enter a valid date"
+  if (!isValidDate(event.date)) {
+    errors.date = "You must enter a valid date"
   }
 
   if (event.title === "") {
