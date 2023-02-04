@@ -10,8 +10,8 @@ const EventForm = ({ events, onSave }) => {
 
   const initialEventState = useCallback(() => {
     const defaults = {
-      event_type: "",
-      event_date: "",
+      kind: "",
+      date: "",
       title: "",
       speaker: "",
       host: "",
@@ -36,7 +36,7 @@ const EventForm = ({ events, onSave }) => {
       onSelect: (date) => {
         const formattedDate = formatDate(date)
         dateInput.current.value = formattedDate
-        updateEvent("event_date", formattedDate)
+        updateEvent("date", formattedDate)
       },
     })
 
@@ -107,9 +107,7 @@ const EventForm = ({ events, onSave }) => {
   }
 
   const cancelURL = event.id ? `/events/${event.id}` : "/events"
-  const title = event.id
-    ? `${event.event_date} - ${event.event_type}`
-    : "New Event"
+  const title = event.id ? `${event.date} - ${event.kind}` : "New Event"
 
   if (id && !event.id) return <EventNotFound />
 
@@ -120,31 +118,31 @@ const EventForm = ({ events, onSave }) => {
       <h2 className="text-xl font-medium">{title}</h2>
       <form className="mt-4 w-full max-w-lg" onSubmit={handleSubmit}>
         <div className="form-control">
-          <label htmlFor="event_type" className="label">
-            <strong className="label-text">Type:</strong>
+          <label htmlFor="kind" className="label">
+            <strong className="label-text">Kind:</strong>
           </label>
           <input
             type="text"
-            id="event_type"
-            name="event_type"
+            id="kind"
+            name="kind"
             className="input-bordered input"
             onChange={handleInputChange}
-            value={event.event_type}
+            value={event.kind}
           />
         </div>
         <div className="form-control">
-          <label htmlFor="event_date" className="label">
+          <label htmlFor="date" className="label">
             <strong className="label-text">Date:</strong>
           </label>
           <input
             type="text"
-            id="event_date"
-            name="event_date"
+            id="date"
+            name="date"
             className="input-bordered input"
             ref={dateInput}
             autoComplete="off"
             onChange={handleInputChange}
-            value={event.event_date}
+            value={event.date}
           />
         </div>
         <div className="form-control">
@@ -217,8 +215,8 @@ EventForm.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      event_type: PropTypes.string.isRequired,
-      event_date: PropTypes.string.isRequired,
+      kind: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       speaker: PropTypes.string.isRequired,
       host: PropTypes.string.isRequired,
