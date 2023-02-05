@@ -25,6 +25,14 @@ const EventForm = ({ events, onSave }) => {
 
   const [event, setEvent] = useState(initialEventState)
 
+  useEffect(() => {
+    setEvent(initialEventState)
+  }, [events, initialEventState])
+
+  const updateEvent = (key, value) => {
+    setEvent((prevEvent) => ({ ...prevEvent, [key]: value }))
+  }
+
   const [formErrors, setFormErrors] = useState({})
 
   const dateInput = useRef(null)
@@ -43,14 +51,6 @@ const EventForm = ({ events, onSave }) => {
     return () => p.destroy()
   }, [])
 
-  useEffect(() => {
-    setEvent(initialEventState)
-  }, [events, initialEventState])
-
-  const updateEvent = (key, value) => {
-    setEvent((prevEvent) => ({ ...prevEvent, [key]: value }))
-  }
-
   const handleInputChange = (e) => {
     const { target } = e
     const { name } = target
@@ -58,6 +58,22 @@ const EventForm = ({ events, onSave }) => {
 
     updateEvent(name, value)
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const errors = validateEvent(event)
+
+    if (!isEmptyObject(errors)) {
+      setFormErrors(errors)
+    } else {
+      onSave(event)
+    }
+  }
+
+  const cancelURL = event.id ? `/events/${event.id}` : "/events"
+  const title = event.id ? `${event.date} - ${event.kind}` : "New Event"
+
+  if (id && !event.id) return <EventNotFound />
 
   const renderErrors = () => {
     if (isEmptyObject(formErrors)) {
@@ -94,22 +110,6 @@ const EventForm = ({ events, onSave }) => {
       </div>
     )
   }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const errors = validateEvent(event)
-
-    if (!isEmptyObject(errors)) {
-      setFormErrors(errors)
-    } else {
-      onSave(event)
-    }
-  }
-
-  const cancelURL = event.id ? `/events/${event.id}` : "/events"
-  const title = event.id ? `${event.date} - ${event.kind}` : "New Event"
-
-  if (id && !event.id) return <EventNotFound />
 
   return (
     <section>
