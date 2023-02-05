@@ -76,9 +76,7 @@ const EventForm = ({ events, onSave }) => {
   if (id && !event.id) return <EventNotFound />
 
   const renderErrors = () => {
-    if (isEmptyObject(formErrors)) {
-      return null
-    }
+    if (isEmptyObject(formErrors)) return null
 
     return (
       <div className="alert alert-error mb-9 w-full max-w-lg shadow-lg">
@@ -209,8 +207,6 @@ const EventForm = ({ events, onSave }) => {
   )
 }
 
-export default EventForm
-
 EventForm.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
@@ -229,3 +225,5 @@ EventForm.propTypes = {
 EventForm.defaultProps = {
   events: [],
 }
+
+export default EventForm
