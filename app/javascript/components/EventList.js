@@ -12,9 +12,14 @@ const EventList = ({ events }) => {
 
   const renderEvents = (eventArray) => {
     const matchSearchTerm = (obj) => {
-      // eslint-disable-next-line no-unused-vars
-      const { id, published, created_at, updated_at, ...rest } = obj
-      return Object.values(rest).some(
+      const pickedObj = (({ kind, date, title, speaker, host }) => ({
+        kind,
+        date,
+        title,
+        speaker,
+        host,
+      }))(obj)
+      return Object.values(pickedObj).some(
         (value) => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
       )
     }
