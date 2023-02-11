@@ -2,9 +2,8 @@ import { error } from "./notifications"
 
 export const isEmptyObject = (obj) => Object.keys(obj).length === 0
 
-const isValidDate = (dateObj) => !Number.isNaN(Date.parse(dateObj))
-
 export const validateEvent = (event) => {
+  const isValidDate = (dateObj) => !Number.isNaN(Date.parse(dateObj))
   const errors = {}
 
   if (event.kind === "") {

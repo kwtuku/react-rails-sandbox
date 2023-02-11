@@ -10,15 +10,20 @@ const EventList = ({ events }) => {
     setSearchTerm(searchInput.current.value)
   }
 
-  const matchSearchTerm = (obj) => {
-    // eslint-disable-next-line no-unused-vars
-    const { id, published, created_at, updated_at, ...rest } = obj
-    return Object.values(rest).some(
-      (value) => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-    )
-  }
-
   const renderEvents = (eventArray) => {
+    const matchSearchTerm = (obj) => {
+      const pickedObj = (({ kind, date, title, speaker, host }) => ({
+        kind,
+        date,
+        title,
+        speaker,
+        host,
+      }))(obj)
+      return Object.values(pickedObj).some(
+        (value) => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      )
+    }
+
     const baseClassName = "block border-b pt-2 px-1.5 pb-2.5"
     const activeClassName = [
       baseClassName,
